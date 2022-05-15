@@ -1,0 +1,79 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TicTocTao
+{
+    class Program
+    {
+        static string[,] arr;
+        static int check;
+
+        static  int player;
+
+            public static void reset()
+        {
+            arr = new string[3, 3] { { "1", " 2", "3" }, { "4", "5", "6" }, { "7", "8", "9" } };
+            check = 0;
+            player = 2;
+        }
+        static void Main(string[] args)
+        {
+            functions fun = new functions();
+            int resp;
+            reset();
+            while(check<=9)
+            {
+                Console.Clear();
+                fun.show(arr);
+                switch (player)
+                {
+                    case 1:
+                        player = 2;
+                        break;
+                    case 2:
+                        player = 1;
+                        break;
+                }
+
+
+                Console.Write($"player{player}:choose your field");
+                try
+                {
+                    resp = Convert.ToInt32(Console.ReadLine());
+                }
+
+
+                catch (Exception)
+                {
+                    continue;
+                }
+                
+                if (player==1)
+                arr[fun.rowf(resp), fun.colf(resp)] = "x";
+                else
+                    arr[fun.rowf(resp), fun.colf(resp)] = "0";
+
+                if (fun.match_check(arr, resp, player))
+                {
+                    Console.Clear();
+                        fun.show(arr);
+                    Console.WriteLine($"player{player} won!");
+                    Console.WriteLine("please press any key to reset the game");
+                    Console.ReadKey();
+                    reset();
+
+                }
+
+                check += 1;
+
+            }
+            Console.Clear();
+            fun.show(arr);
+            Console.WriteLine("match tied");
+            Console.ReadKey();
+        }
+    }
+}
