@@ -1,0 +1,70 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TicTocTao
+{
+    class functions
+    {
+        public int rowf(int resp)
+        {
+            int row1 = resp / 3;
+            if (resp % 3 == 0)
+                row1 = row1 - 1;
+            return row1;
+
+        }
+
+        public int colf(int resp)
+        {
+            int col1 = resp % 3;
+            if (col1 == 0)
+                col1 = 3;
+            col1 = col1 - 1;
+            return col1;
+        }
+
+
+
+
+        public bool match_check(string[,] a, int resp, int player)
+        {
+
+            int row = rowf(resp);
+            int col = colf(resp);
+            
+
+            if (resp % 2 != 0)
+            {
+                if ((a[0, 0].Equals(a[1, 1]) && a[1, 1].Equals(a[2, 2])) || (a[0, 2].Equals(a[1, 1]) && a[2, 0].Equals(a[1, 1])))
+                    return true;
+
+            }
+
+
+
+            if ((a[row, 0].Equals(a[row, 1]) && a[row, 2].Equals(a[row, 1])) || (a[0, col].Equals(a[1, col]) && a[1, col].Equals(a[2, col])))
+                return true;
+
+            return false;
+
+        }
+
+        public void show(string[,] a)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Console.Write(a[i, j]);
+                    Console.Write("     ");
+                }
+                Console.WriteLine();
+                Console.WriteLine();
+            }
+        }
+    }
+}
+
